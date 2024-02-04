@@ -1,0 +1,17 @@
+{
+  "name": "sdk-privacy-manifest-finder",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "console-table-printer": "^2.12.0",
+    "zod": "^3.22.4",
+    "@topcli/spinner": "^2.1.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  }
+}
