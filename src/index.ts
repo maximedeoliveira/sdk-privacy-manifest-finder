@@ -8,7 +8,6 @@ import type { SearchResult } from "@/types";
 
 const argSchema = z.object({
   path: z.string(),
-  fileName: z.string(),
 });
 
 const { values } = parseArgs({
@@ -17,16 +16,12 @@ const { values } = parseArgs({
     path: {
       type: "string",
     },
-    fileName: {
-      type: "string",
-      default: "Podfile.lock",
-    },
   },
   strict: true,
   allowPositionals: true,
 });
 
-const { path, fileName } = argSchema.parse(values);
+const { path } = argSchema.parse(values);
 
 if (!(await isValidPath(path))) {
   console.log(`The path "${path}" is not valid.`);
@@ -35,7 +30,7 @@ if (!(await isValidPath(path))) {
 
 console.log("\n\nSearching for SDKs in the path:", path);
 const output = await Promise.allSettled(
-  sdks.map((s) => search({ sdk: s, path, fileName }))
+  sdks.map((s) => search({ sdk: s, path }))
 );
 
 console.log("\n\nResults:");

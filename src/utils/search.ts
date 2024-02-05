@@ -5,13 +5,11 @@ import type { SearchResult } from "@/types";
 type SearchParams = {
   sdk: string;
   path: string;
-  fileName: string;
 };
 
 export const search = async ({
   sdk,
   path,
-  fileName,
 }: SearchParams): Promise<SearchResult> => {
   const spinner = new Spinner().start("Start working!", {
     withPrefix: `[${sdk}] `,
@@ -21,7 +19,7 @@ export const search = async ({
 
   try {
     const output: string[] = [];
-    for await (let line of $`grep --include=${fileName} -Rw '${path}' -e '${sdk}'`.lines()) {
+    for await (let line of $`grep --include=Podfile.lock --include=Package.resolved --include=Carthage.lock -Rw '${path}' -e '${sdk}'`.lines()) {
       const splittedLine = line.split(":");
 
       if (!output.includes(splittedLine[0]) && splittedLine[0] !== "") {
